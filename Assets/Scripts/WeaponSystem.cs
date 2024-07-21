@@ -1,5 +1,6 @@
 ﻿using TMPro;
 using UnityEngine;
+using System.Collections;
 
 namespace Kuoan
 {
@@ -8,6 +9,7 @@ namespace Kuoan
     /// </summary>
     public class WeaponSystem : MonoBehaviour
     {
+        #region 資料
         [SerializeField, Header("武器資料")]
         private DataWeapon dataWeapon;
         [SerializeField, Header("子彈生成位置")]
@@ -24,7 +26,12 @@ namespace Kuoan
 
         private int bulletCurrent;
         private int bulletTotal;
+        private int magazineCount;
+        private bool canFire = true;
+        private bool isReload;
+        #endregion
 
+        #region 事件
         private void Awake()
         {
             Initialize();
@@ -33,8 +40,14 @@ namespace Kuoan
         private void Update()
         {
             Fire();
+            Reload();
+#if UNITY_EDITOR           
+            Test();
+#endif
         }
+        #endregion
 
+        #region 方法
         ///<summary>
         /// 初始化
         /// </summary>
@@ -50,12 +63,65 @@ namespace Kuoan
 
         private void Fire()
         {
-            if(Input.GetKeyDown(KeyCode.Mouse0))
+            if (!canFire) return;
+            if (bulletCurrent <= 0) return;
+
+            if (Input.GetKeyDown(KeyCode.Mouse0))
             {
                 GameObject tempBullet = Instantiate(dataWeapon.bulletPrefab, spawnBulletPoint.position, Quaternion.identity);
                 tempBullet.GetComponent<Rigidbody2D>().AddForce(spawnBulletPoint.right * dataWeapon.bulletSpeed);
+                bulletCurrent--;
+                UpdateUI();
+                StartCoroutine(bulletCD());
             }
         }
-        
+
+        private IEnumerator bulletCD()
+        {
+            canFire = false;
+            yield return new WaitForSeconds(dataWeapon.bulletCD);
+            canFire = true;
+        }
+        private void UpdateUI()
+        {
+            textBulletCurrent.text = $"子彈:{bulletCurrent}";
+            textBulletTotal.text = $"總數:{dataWeapon.magazineBulletCount * magazineCount}";
+        }
+        private void Reload()
+        {
+            if (magazineCount <= 0) return;
+            if (isReload) return;
+            if (Input.GetKeyDown(KeyCode.Mouse1))
+            {
+                StartCoroutine(ReloadHandle());
+            }
+        }
+
+        private IEnumerator ReloadHandle()
+        {
+            isReload = true;
+            bulletCurrent = 0;
+            UpdateUI();
+            yield return new WaitForSeconds(dataWeapon.magazineCD);
+            bulletCurrent = dataWeapon.magazineBulletCount;
+            magazineCount--;
+            UpdateUI();
+            isReload = false;
+        }
+
+        ///summary
+        /// 測試:填充彈匣
+        ///</summary>
+        private void Test()
+        {
+            if (Input.GetKeyDown(KeyCode.Keypad1))
+            {
+                magazineCount++;
+                UpdateUI();
+            }
+
+        } 
+        #endregion
+
     }
 }

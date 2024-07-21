@@ -10,15 +10,15 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dab6eeada312a9a4cb99582eedbca8b5, type: 3}
-  m_Name: "\u6B66\u5668\u8CC7\u6599_\u885D\u92D2\u69CD"
+  m_Name: "\u6B66\u5668\u8CC7\u6599_\u624B\u69CD"
   m_EditorClassIdentifier: 
-  weaponName: "\u72D9\u64CA\u69CD"
-  magazineBulletCount: 6
-  magazineBulletPrice: 1600
-  magazineCD: 2
-  bulletLife: 2
-  bulletDamage: 50
-  bulletRecoil: 2
-  bulletCD: 2
-  bulletSpeed: 1500
-  bulletPrefab: {fileID: 6587646227353584782, guid: c1720bbeb93f3684cab3157a1b2f4cb1, type: 3}
+  weaponName: "\u624B\u69CD"
+  magazineBulletCount: 12
+  magazineBulletPrice: 0
+  magazineCD: 0.5
+  bulletLife: 1.5
+  bulletDamage: 10
+  bulletRecoil: 1
+  bulletCD: 0.8
+  bulletSpeed: 1000
+  bulletPrefab: {fileID: 6587646227353584782, guid: 5e365fa5b27cb8d47b4f68a580fabe73, type: 3}

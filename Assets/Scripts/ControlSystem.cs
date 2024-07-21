@@ -7,9 +7,11 @@ namespace Kuoan
     /// </summary>
     public class ControlSystem : MonoBehaviour
     {
+        #region 資料
         // SerializeField 序列化，將變數顯示在面板
         // Header 標題，在變數上顯示文字
         // Range(最小，最大) 設定變數範圍限制
+        
         [SerializeField, Header("移動速度"), Range(0, 10)]
         private float moveSpeed = 3.5f;
         [SerializeField, Header("爬樓梯速度"), Range(0, 10)]
@@ -28,7 +30,9 @@ namespace Kuoan
         private Rigidbody2D rig;
         private Animator ani;
         private string parMove = "移動數值";
+        #endregion
 
+        #region 事件
         // ODG 繪製圖示事件，在編輯器內繪製提示圖示
         private void OnDrawGizmos()
         {
@@ -51,7 +55,9 @@ namespace Kuoan
             Move();
             Ladder();
         }
+        #endregion
 
+        #region 方法
         // 自訂方法：移動
         private void Move()
         {
@@ -79,5 +85,7 @@ namespace Kuoan
             //給ladderSpeed一個向上加速度，使玩家可以爬樓梯
             rig.velocity = new Vector2(rig.velocity.x, ladderSpeed);
         }
-    }
+        #endregion
+    } 
+    
 }
