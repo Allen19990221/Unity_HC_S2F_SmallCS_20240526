@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace KID
+namespace Kuoan
 {
     /// <summary>
     /// 控制系統

@@ -1,7 +1,7 @@
 ﻿
 using UnityEngine;
 
-namespace KID
+namespace Kuoan
 {
     /// <summary>
     /// 旋轉武器
