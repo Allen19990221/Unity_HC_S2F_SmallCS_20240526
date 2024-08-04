@@ -11,18 +11,9 @@ namespace Kuoan
     {
         #region 資料
         [SerializeField, Header("武器資料")]
-        private DataWeapon dataWeapon;
+        protected DataWeapon dataWeapon;
         [SerializeField, Header("子彈生成位置")]
         private Transform spawnBulletPoint;
-        [Header("介面")]
-        [SerializeField]
-        private TMP_Text textWeaponName;
-        [SerializeField]
-        private TMP_Text textBulletCurrent;
-        [SerializeField]
-        private TMP_Text textBulletTotal;
-        [SerializeField]
-        private TMP_Text textMagazinePrice;
 
         private int bulletCurrent;
         private int bulletTotal;
@@ -51,12 +42,8 @@ namespace Kuoan
         ///<summary>
         /// 初始化
         /// </summary>
-        private void Initialize()
+        protected virtual void Initialize()
         {
-            textWeaponName.text = dataWeapon.weaponName;
-            textBulletCurrent.text = $"子彈:{dataWeapon.magazineBulletCount}";
-            textBulletTotal.text = "總數:0";
-            textMagazinePrice.text = $"價格:{dataWeapon.magazineBulletPrice}";
             bulletCurrent = dataWeapon.magazineBulletCount;
             bulletTotal = 0;
         }
