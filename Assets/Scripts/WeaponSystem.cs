@@ -38,9 +38,7 @@ namespace Kuoan
 
         protected virtual void Update()
         {
-            Fire();
-            Reload();
-
+            
         }
         #endregion
 
@@ -54,12 +52,16 @@ namespace Kuoan
             bulletTotal = 0;
         }
 
-        private void Fire()
+        /// <summary>
+        /// 開槍方法
+        /// </summary>
+        /// <param name="fire">是否要開槍</param>
+        protected void Fire(bool fire)
         {
             if (!canFire) return;
             if (bulletCurrent <= 0) return;
 
-            if (Input.GetKeyDown(KeyCode.Mouse0))
+            if (fire)
             {
                 GameObject tempBullet = Instantiate(dataWeapon.bulletPrefab, spawnBulletPoint.position, Quaternion.identity);
                 tempBullet.GetComponent<Rigidbody2D>().AddForce(spawnBulletPoint.right * dataWeapon.bulletSpeed);
@@ -76,11 +78,15 @@ namespace Kuoan
             canFire = true;
         }
         
-        private void Reload()
+        /// <summary>
+        /// 換彈匣
+        /// </summary>
+        /// <param name="reload">是否要換彈匣</param>
+        protected void Reload(bool reload)
         {
             if (magazineCount <= 0) return;
             if (isReload) return;
-            if (Input.GetKeyDown(KeyCode.Mouse1))
+            if (reload)
             {
                 StartCoroutine(ReloadHandle());
             }

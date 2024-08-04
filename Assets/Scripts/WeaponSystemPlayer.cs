@@ -9,6 +9,8 @@ namespace Kuoan
     /// ///子類別:父類別(繼承)
     public class WeaponSystemPlayer : WeaponSystem
     {
+        [SerializeField, Header("是否連射")]
+        private bool isRepaid;
         [SerializeField, Header("介面父物件:按鈕武器")]
         private Transform uiParent;
 
@@ -17,7 +19,10 @@ namespace Kuoan
         private TMP_Text textBulletTotal;
         private TMP_Text textMagazinePrice;
 
-      
+        private bool fireKey => isRepaid ? Input.GetKey(KeyCode.Mouse0) : Input.GetKeyDown(KeyCode.Mouse0);
+        private bool reloadKey => Input.GetKeyDown(KeyCode.Mouse1);
+
+
         protected override void Awake()
         {
             base.Awake();
@@ -26,6 +31,8 @@ namespace Kuoan
         protected override void Update()
         {
             base.Update();
+            Fire(fireKey);
+            Reload(reloadKey);
 #if UNITY_EDITOR
             Test();
 #endif
