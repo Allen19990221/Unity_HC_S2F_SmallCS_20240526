@@ -19,6 +19,6 @@ MonoBehaviour:
   bulletLife: 1
   bulletDamage: 20
   bulletRecoil: 1.8
-  bulletCD: 1
-  bulletSpeed: 500
+  bulletCD: 1.5
+  bulletSpeed: 750
   bulletPrefab: {fileID: 6587646227353584782, guid: cecdfe5e5b5852d4e885269f234ba663, type: 3}

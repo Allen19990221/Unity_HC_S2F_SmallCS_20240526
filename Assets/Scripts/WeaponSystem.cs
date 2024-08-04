@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System;
+using Random = UnityEngine.Random;
 
 namespace Kuoan
 {
@@ -14,6 +15,9 @@ namespace Kuoan
         protected DataWeapon dataWeapon;
         [SerializeField, Header("子彈生成位置")]
         private Transform spawnBulletPoint;
+        [SerializeField, Header("生成子彈數量"), Range(1, 20)]
+        private int spawnBulletCount = 1;
+
 
         protected int bulletCurrent;
         protected int bulletTotal;
@@ -63,12 +67,23 @@ namespace Kuoan
 
             if (fire)
             {
-                GameObject tempBullet = Instantiate(dataWeapon.bulletPrefab, spawnBulletPoint.position, Quaternion.identity);
-                tempBullet.GetComponent<Rigidbody2D>().AddForce(spawnBulletPoint.right * dataWeapon.bulletSpeed);
+                SpawnBullet();
                 bulletCurrent--;
                 updateUI?.Invoke();
                 StartCoroutine(bulletCD());
             }
+        }
+
+        private void SpawnBullet()
+        {
+            for (int i = 0; i < spawnBulletCount; i++)
+            {
+            GameObject tempBullet = Instantiate(dataWeapon.bulletPrefab, spawnBulletPoint.position, Quaternion.identity);
+                float yFloat = Random.Range(-dataWeapon.bulletRecoil, dataWeapon.bulletRecoil);
+                float xFloat = Random.Range(-dataWeapon.bulletRecoil, dataWeapon.bulletRecoil);
+                tempBullet.GetComponent<Rigidbody2D>().AddForce(spawnBulletPoint.right * dataWeapon.bulletSpeed + Vector3.up * yFloat + Vector3.right * xFloat);
+            }
+
         }
 
         private IEnumerator bulletCD()
@@ -82,7 +97,7 @@ namespace Kuoan
         /// 換彈匣
         /// </summary>
         /// <param name="reload">是否要換彈匣</param>
-        protected void Reload(bool reload)
+        protected virtual void Reload(bool reload)
         {
             if (magazineCount <= 0) return;
             if (isReload) return;

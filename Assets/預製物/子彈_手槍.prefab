@@ -8,9 +8,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6652977926248090953, guid: 2d19a262e6fa0c04bb42689ebdd5185d, type: 3}
+      propertyPath: m_GravityScale
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8101368883858851372, guid: 2d19a262e6fa0c04bb42689ebdd5185d, type: 3}
       propertyPath: m_Name
-      value: "\u5B50\u5F48_\u885D\u92D2\u69CD"
+      value: "\u5B50\u5F48_\u624B\u69CD"
       objectReference: {fileID: 0}
     - target: {fileID: 8217462561555514914, guid: 2d19a262e6fa0c04bb42689ebdd5185d, type: 3}
       propertyPath: m_RootOrder
@@ -84,7 +88,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76e294055d4e124688c2034f48f645b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dataWeapon: {fileID: 11400000, guid: 5fcbe40fc37f4d74e975480bbd9df7cc, type: 2}
+  dataWeapon: {fileID: 11400000, guid: 81607497cf06f2248bb82a33798c897c, type: 2}
 --- !u!58 &-7923606585296225568
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -10,5 +10,11 @@ namespace Kuoan
     {
         [SerializeField, Header("武器資料")]
         private DataWeapon dataWeapon;
+
+        private void Awake()
+        {
+            Destroy(gameObject, dataWeapon.bulletLife);
+        }
+
     }
 }

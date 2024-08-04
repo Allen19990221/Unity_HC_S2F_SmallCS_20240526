@@ -11,6 +11,10 @@ namespace Kuoan
     {
         [SerializeField, Header("是否連射")]
         private bool isRepaid;
+        [SerializeField, Header("是否無限子彈")]
+        private bool isInfiniteBullet;
+        [SerializeField, Header("是否為預設武器")]
+        private bool isDefaultWeapon;
         [SerializeField, Header("介面父物件:按鈕武器")]
         private Transform uiParent;
 
@@ -48,15 +52,26 @@ namespace Kuoan
             textMagazinePrice = uiParent.GetChild(3).GetComponent<TMP_Text>();
 
             textWeaponName.text = dataWeapon.weaponName;
-            textBulletCurrent.text = $"子彈:{dataWeapon.magazineBulletCount}";
-            textBulletTotal.text = "總數:0";
+            //textBulletCurrent.text = $"子彈:{dataWeapon.magazineBulletCount}";
+            //textBulletTotal.text = "總數:0";
             textMagazinePrice.text = $"價格:{dataWeapon.magazineBulletPrice}";
+
+            magazineCount = isInfiniteBullet ? 999 : 0;
+            UpdateUI();
+            gameObject.SetActive(isDefaultWeapon);
         }
 
         private void UpdateUI()
         {
+            bulletTotal = dataWeapon.magazineBulletCount * magazineCount;
             textBulletCurrent.text = $"子彈:{bulletCurrent}";
-            textBulletTotal.text = $"總數:{dataWeapon.magazineBulletCount * magazineCount}";
+            textBulletTotal.text = $"總數:{(isInfiniteBullet ? "∞" : bulletTotal)}";
+        }
+
+        protected override void Reload(bool reload)
+        {
+            base.Reload(reload);
+            magazineCount = isInfiniteBullet ? 999 : magazineCount;
         }
 
         private void Test()
