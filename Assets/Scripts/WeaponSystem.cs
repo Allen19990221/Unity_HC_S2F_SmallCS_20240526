@@ -1,6 +1,6 @@
-﻿using TMPro;
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
+using System;
 
 namespace Kuoan
 {
@@ -15,26 +15,32 @@ namespace Kuoan
         [SerializeField, Header("子彈生成位置")]
         private Transform spawnBulletPoint;
 
-        private int bulletCurrent;
-        private int bulletTotal;
-        private int magazineCount;
+        protected int bulletCurrent;
+        protected int bulletTotal;
+        protected int magazineCount;
         private bool canFire = true;
         private bool isReload;
         #endregion
+        //修飾詞:
+        //私人:private:僅限此類別存取
+        //公開:public:所有類別都可存取
+        //保護:protected:允許子類別存取
 
+        //虛擬:virtual:允許子類別覆寫
+
+        //Action:
+        protected Action updateUI; 
         #region 事件
-        private void Awake()
+        protected virtual void Awake()
         {
             Initialize();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             Fire();
             Reload();
-#if UNITY_EDITOR           
-            Test();
-#endif
+
         }
         #endregion
 
@@ -58,7 +64,7 @@ namespace Kuoan
                 GameObject tempBullet = Instantiate(dataWeapon.bulletPrefab, spawnBulletPoint.position, Quaternion.identity);
                 tempBullet.GetComponent<Rigidbody2D>().AddForce(spawnBulletPoint.right * dataWeapon.bulletSpeed);
                 bulletCurrent--;
-                UpdateUI();
+                updateUI?.Invoke();
                 StartCoroutine(bulletCD());
             }
         }
@@ -69,11 +75,7 @@ namespace Kuoan
             yield return new WaitForSeconds(dataWeapon.bulletCD);
             canFire = true;
         }
-        private void UpdateUI()
-        {
-            textBulletCurrent.text = $"子彈:{bulletCurrent}";
-            textBulletTotal.text = $"總數:{dataWeapon.magazineBulletCount * magazineCount}";
-        }
+        
         private void Reload()
         {
             if (magazineCount <= 0) return;
@@ -88,26 +90,18 @@ namespace Kuoan
         {
             isReload = true;
             bulletCurrent = 0;
-            UpdateUI();
+            updateUI?.Invoke();
             yield return new WaitForSeconds(dataWeapon.magazineCD);
             bulletCurrent = dataWeapon.magazineBulletCount;
             magazineCount--;
-            UpdateUI();
+            updateUI?.Invoke();
             isReload = false;
         }
 
         ///summary
         /// 測試:填充彈匣
         ///</summary>
-        private void Test()
-        {
-            if (Input.GetKeyDown(KeyCode.Keypad1))
-            {
-                magazineCount++;
-                UpdateUI();
-            }
-
-        } 
+       
         #endregion
 
     }

@@ -8308,15 +8308,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1012112064}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4399e2c7d0a466b4a98d758c96258148, type: 3}
+  m_Script: {fileID: 11500000, guid: f7adc720ecbf21f41bf667fbd5f51dfc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   dataWeapon: {fileID: 11400000, guid: 5fcbe40fc37f4d74e975480bbd9df7cc, type: 2}
   spawnBulletPoint: {fileID: 1479627435}
-  textWeaponName: {fileID: 0}
-  textBulletCurrent: {fileID: 0}
-  textBulletTotal: {fileID: 0}
-  textMagazinePrice: {fileID: 0}
+  textWeaponName: {fileID: 1172413342}
+  textBulletCurrent: {fileID: 639508472}
+  textBulletTotal: {fileID: 933929397}
+  textMagazinePrice: {fileID: 1548194404}
 --- !u!1001 &1037464548
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9512,7 +9512,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1479627434}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.796, y: 0.024, z: 90}
+  m_LocalPosition: {x: 0.7960001, y: 0.024000064, z: 90}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
