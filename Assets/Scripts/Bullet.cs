@@ -1,4 +1,4 @@
-﻿
+
 using UnityEngine;
 
 namespace Kuoan
@@ -14,6 +14,12 @@ namespace Kuoan
         private void Awake()
         {
             Destroy(gameObject, dataWeapon.bulletLife);
+        }
+
+        //OCE2 碰撞事件，物件有碰撞氣碰到其他物件時執行事件
+        private void OnCollisionEnter2D(Collision2D collision)
+        {
+            Destroy(gameObject);
         }
 
     }

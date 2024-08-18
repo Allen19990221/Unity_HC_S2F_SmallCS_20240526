@@ -27,9 +27,9 @@ namespace Kuoan
         //圖層排序為2進制，輸入想選的數字前面+" 1 << "
         private LayerMask ladderLayer = 1 << 3;
 
-        private Rigidbody2D rig;
-        private Animator ani;
-        private string parMove = "移動數值";
+        protected Rigidbody2D rig;
+        protected Animator ani;
+        protected string parMove = "移動數值";
         #endregion
 
         #region 事件

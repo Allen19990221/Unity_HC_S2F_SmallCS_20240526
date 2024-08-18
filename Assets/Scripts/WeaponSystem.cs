@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using System.Collections;
 using System;
 using Random = UnityEngine.Random;
@@ -17,6 +17,8 @@ namespace Kuoan
         private Transform spawnBulletPoint;
         [SerializeField, Header("生成子彈數量"), Range(1, 20)]
         private int spawnBulletCount = 1;
+        [SerializeField, Header("子彈塗層編號"), Tooltip("玩家子彈是8號，敵人子彈是9號")]
+        private int bulletLayerIndex;
 
 
         protected int bulletCurrent;
@@ -82,6 +84,7 @@ namespace Kuoan
                 float yFloat = Random.Range(-dataWeapon.bulletRecoil, dataWeapon.bulletRecoil);
                 float xFloat = Random.Range(-dataWeapon.bulletRecoil, dataWeapon.bulletRecoil);
                 tempBullet.GetComponent<Rigidbody2D>().AddForce(spawnBulletPoint.right * dataWeapon.bulletSpeed + Vector3.up * yFloat + Vector3.right * xFloat);
+                tempBullet.layer = bulletLayerIndex;
             }
 
         }
