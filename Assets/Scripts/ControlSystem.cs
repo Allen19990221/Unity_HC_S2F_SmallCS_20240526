@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 namespace Kuoan
 {
@@ -34,7 +34,7 @@ namespace Kuoan
 
         #region 事件
         // ODG 繪製圖示事件，在編輯器內繪製提示圖示
-        private void OnDrawGizmos()
+        protected virtual void OnDrawGizmos()
         {
             //決定圖示顏色
             Gizmos.color = ladderColor;
@@ -42,37 +42,35 @@ namespace Kuoan
             // transform.position 抓取此物件的座標
             Gizmos.DrawCube(transform.position + ladderOffset, ladderSize);
         }
-        private void Awake()
+        protected virtual void Awake()
         {
             // 獲得此物件身上的 2D 剛體並存放到變數 rig 內
             rig = GetComponent<Rigidbody2D>();
             ani = GetComponent<Animator>();
         }
 
-        private void Update()
+        protected virtual void Update()
         {
             // 呼叫自訂方法移動
-            Move();
-            Ladder();
+            //Move();
+            //Ladder();
         }
         #endregion
 
         #region 方法
         // 自訂方法：移動
-        private void Move()
+        protected void Move(float move)
         {
-            // 獲得玩家的水平按鍵：A、D 與左右
-            // 玩家按下左 -1，右 +1，沒按 0
-            float h = Input.GetAxis("Horizontal");
+            
             // 剛體的加速度 = 玩家水平按鍵 * 移動速度，Y 軸是原本的重力
-            rig.velocity = new Vector2(h * moveSpeed, rig.velocity.y);
+            rig.velocity = new Vector2(move * moveSpeed, rig.velocity.y);
             // 對 h 取絕對值
-            h = Mathf.Abs(h);
+            move = Mathf.Abs(move);
             // 設定浮點數參數 為 h
-            ani.SetFloat(parMove, h);
+            ani.SetFloat(parMove, move);
         }
 
-        private void Ladder()
+        protected void Ladder(float move)
         {
             //2D物理.覆蓋立方體(玩家座標，爬梯區域尺寸，角度，塗層)
             Collider2D hit = Physics2D.OverlapBox(transform.position + ladderOffset,
@@ -81,7 +79,7 @@ namespace Kuoan
             if (hit == null) return;
             //如果玩家水平移動絕對值 < 0.2，就不執行以下程式，跳出
             float h = Input.GetAxis("Horizontal");
-            if (Mathf.Abs(h) < 0.2f) return;
+            if (Mathf.Abs(move) < 0.2f) return;
             //給ladderSpeed一個向上加速度，使玩家可以爬樓梯
             rig.velocity = new Vector2(rig.velocity.x, ladderSpeed);
         }
