@@ -8,6 +8,11 @@ namespace Kuoan
     /// </summary>
     public class Bullet : MonoBehaviour
     {
+        /// <summary>
+        /// 子彈傷害
+        /// </summary>
+        public float bulletDamage => dataWeapon.bulletDamage;
+
         [SerializeField, Header("武器資料")]
         private DataWeapon dataWeapon;
 

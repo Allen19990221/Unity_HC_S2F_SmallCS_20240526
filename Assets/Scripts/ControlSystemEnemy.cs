@@ -62,6 +62,8 @@ namespace Kuoan
 
         protected override void Update()
         {
+            if (player == null) return;
+
             base.Update();
             if (CheckPlayer())
             {

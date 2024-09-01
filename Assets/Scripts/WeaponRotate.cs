@@ -21,6 +21,7 @@ namespace Kuoan
         #region 事件
         protected virtual void Update()
         {
+            if (crossHair == null) return;
             Rotate();
             Flip();
         }
