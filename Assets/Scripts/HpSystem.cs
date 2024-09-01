@@ -29,11 +29,15 @@ namespace Kuoan
             print(hp);
             if (hp <= 0) Dead();  
         }
-        private void Dead()
+        protected virtual void Dead()
         {
             GameObject temp = Instantiate(explosion, transform.position, Quaternion.identity);
             Destroy(temp, 1);
             Destroy(gameObject);
+        }
+        public void SetImgHp(Image _imgHp)
+        {
+            imgHp = _imgHp;
         }
     }
 }

@@ -24,6 +24,11 @@ namespace Kuoan
             //此物件的座標 = 目標物件的座標
             transform.position = target.position + Vector3.up * offset;
         }
+
+        public void SetTarget(Transform _target)
+        {
+            target = _target;
+        }
     }
 
 }

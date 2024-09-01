@@ -5,18 +5,19 @@ namespace Kuoan
     /// <summary>
     /// 控制系統:敵人
     /// </summary>
+    public enum WeaponType
+        {
+            //定義列舉
+            //列舉自帶有編號從玲開始，手槍0、衝鋒槍1、散彈槍2、狙擊槍3
+            Pistol, MachineGun, ShotGun, Sniper
+        }
     public class ControlSystemEnemy : ControlSystem
     {
         /// <summary>
         /// 檢查玩家是否在射線範圍內
         /// </summary>
         public bool checkPlayer => CheckPlayer();
-        private enum WeaponType
-        {
-            //定義列舉
-            //列舉自帶有編號從玲開始，手槍0、衝鋒槍1、散彈槍2、狙擊槍3
-            Pistol, MachineGun, ShotGun, Sniper
-        }
+        
 
         [SerializeField, Header("敵人武器")]
         private WeaponType weaponType;
@@ -51,13 +52,6 @@ namespace Kuoan
             base.Awake();
             player = GameObject.Find(GameManager.playerName).transform;
 
-            //隱藏非選取武器，顯示選取武器
-            for (int i = 0; i < weapons.Length; i++)
-            {
-                weapons[i].SetActive(i == (int)weaponType);  
-            }
-            //獲得顯示武器的子彈生成位置
-            weaponFirePoint = weapons[(int)weaponType].transform.Find("子彈生成位置");
         }
 
         protected override void Update()
@@ -79,6 +73,7 @@ namespace Kuoan
 
         private bool CheckPlayer()
         {
+            
             //2D 物理射線碰撞(起點，方向，長度，圖層)
             RaycastHit2D hit = Physics2D.Raycast(
             weaponFirePoint.position, weaponFirePoint.right, checkPlayerLength, checkPlayerLayer);
@@ -86,6 +81,23 @@ namespace Kuoan
             if (hit.collider == null) return false;
             //如果 碰到物件的名稱 等於 玩家名稱 就傳回 true
             return hit.collider.name.Equals(GameManager.playerName);
+        } 
+        
+        ///<summary>
+        ///設定武器
+        ///</summary>
+        ///<param name="_weaponType">武器類型</param>
+        public void SetWeaponType(WeaponType _weaponType)
+        {
+            weaponType = _weaponType;
+                
+            //隱藏非選取武器，顯示選取武器
+            for (int i = 0; i < weapons.Length; i++)
+            {
+                weapons[i].SetActive(i == (int)weaponType);
+            }
+            //獲得顯示武器的子彈生成位置
+            weaponFirePoint = weapons[(int)weaponType].transform.Find("子彈生成位置");
         }
     }
 
